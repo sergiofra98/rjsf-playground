@@ -1,0 +1,19 @@
+.row2 {
+  zoom: 1;
+}
+.row2:before,
+.row2:after {
+  content: "";
+  display: table;
+}
+.row2:after {
+  clear: both;
+}
+.col-half {
+  padding-right: 10px;
+  float: left;
+  width: 50%;
+}
+.col-half:last-of-type {
+  padding-right: 0;
+}
