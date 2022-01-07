@@ -17,7 +17,7 @@ import selectn from "selectn";
 
 import { Form, Card } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel'
-import { ImageAlt, Plus, X, XCircleFill} from 'react-bootstrap-icons'
+import { ImageAlt, Plus, X, XCircleFill } from 'react-bootstrap-icons'
 
 import obtener_catalogo from './obtener_catalogo'
 
@@ -27,7 +27,7 @@ const compSelect = (props, nombre = "") => {
     const storeCatalogo = useSelector(state => selectn(nombre, state))
     const dispatch = useDispatch()
     useEffect(() => {
-       
+
         if (!selectn('lista', storeCatalogo)) {
             switch (nombre) {
                 case "carreteraCarril": dispatch(carreteraCarrilActions.getAll())
@@ -43,17 +43,18 @@ const compSelect = (props, nombre = "") => {
         }
         setValue(props.value || null)
     }, [])
-    
+
     return <Form.Select
-            onChange={(e) => {
-                setValue(e.target.value)
-                props.onChange(e.target.value)
-            }}
-            key={value}
-            value = {value}
-            >
-            <option value={undefined} hidden>Escoge una opcion</option>
-            {props.options.enumOptions.map((elem) => {
+        onChange={(e) => {
+            setValue(e.target.value)
+            props.onChange(e.target.value)
+        }}
+        key={value}
+        value={value}
+    >
+        <option value={undefined} hidden>Escoge una opcion</option>
+        {props.options.enumOptions ?
+            props.options.enumOptions.map((elem) => {
                 return (
                     <option
                         value={elem.value}
@@ -64,8 +65,8 @@ const compSelect = (props, nombre = "") => {
                         }
                     </option >
                 )
-            })}
-        </Form.Select>
+            }) : ''}
+    </Form.Select>
 }
 
 const numYear = (props) => {
@@ -117,7 +118,7 @@ const numCadenamiento = (props) => {
             format={(val) => parseInt(val / 1000) + ' +' + String(val % 1000).padStart(3, '0')}
             isNumericString
             required
-            value = {value}
+            value={value}
         />
         <Form.Text>
             {invalid ? `El cadenamiento es de ${parseInt(props.schema.minimum / 1000)} + 
@@ -163,30 +164,30 @@ const textArea = (props) => {
 const fileFotos = (props) => {
     const [preview, setPreview] = useState([]);
     const [fotoIndex, setFotoIndex] = useState(0);
-    useEffect(()=>{
-        if(!!props.value){
-            let temp_data=[]
-            for(let i in props.value){
+    useEffect(() => {
+        if (!!props.value) {
+            let temp_data = []
+            for (let i in props.value) {
                 temp_data.push(props.value[i][0].url)
             }
             setPreview(temp_data)
         }
-    },[])
+    }, [])
 
-    useEffect(()=>{
-        setFotoIndex(length_fotos(props.value)-1)
-    },[props.value])
+    useEffect(() => {
+        setFotoIndex(length_fotos(props.value) - 1)
+    }, [props.value])
 
     const handleSelect = (selectedIndex, e) => {
         setFotoIndex(selectedIndex);
     };
 
-    const length_fotos = (fotos)=>{
+    const length_fotos = (fotos) => {
         let contador = 0
-        for(let i in fotos){
+        for (let i in fotos) {
             const data = fotos[i]
-            if(!data[0].delete){
-              contador+=1
+            if (!data[0].delete) {
+                contador += 1
             }
         }
         return contador
@@ -197,23 +198,23 @@ const fileFotos = (props) => {
 
 
         let files = event.target.files;
-        
+
         let tempFiles = []
         let filesToAdd = props.value
 
-        for (var i = 0; i < files.length; i++){
+        for (var i = 0; i < files.length; i++) {
 
             tempFiles.push(files[i])
             filesToAdd.push([{
-                "file":files[i],
-                "delete":false,
+                "file": files[i],
+                "delete": false,
                 "url": window.URL.createObjectURL(files[i])
-                }])
+            }])
         }
         setFotoIndex(0)
         props.onChange(filesToAdd)
         setPreview(filesToAdd)
-        
+
     }
     const handlePreview = (index) => {
         setFotoIndex(index)
@@ -224,20 +225,20 @@ const fileFotos = (props) => {
 
         let data = props.value
         data[index][0].delete = true
-        data[index][0].url= URL.revokeObjectURL(data[index][0].file)
+        data[index][0].url = URL.revokeObjectURL(data[index][0].file)
         props.onChange(data)
         handlePreview(0)
         let temp = preview
-        temp.slice(index,1)
-        setPreview([...preview,temp])
+        temp.slice(index, 1)
+        setPreview([...preview, temp])
     }
 
     return length_fotos(props.value) == 0 ?
         <div className="row">
-            <div className='text-center my-2 h-100 bg-secondary mx-2' style={{width:"95%"}}>
-                <ImageAlt className='w-50 h-50 text-white my-5'/>
+            <div className='text-center my-2 h-100 bg-secondary mx-2' style={{ width: "95%" }}>
+                <ImageAlt className='w-50 h-50 text-white my-5' />
             </div>
-            
+
 
             <label className="custom-file-upload">
                 <input
@@ -250,7 +251,7 @@ const fileFotos = (props) => {
                     required
                     className="d-none w-50"
                     type="file"
-                    onClick={(e)=>{e.target.value = null}}
+                    onClick={(e) => { e.target.value = null }}
                 />
                 <div className="btn btn-outline-secondary">
                     Escoger Imagenes
@@ -264,7 +265,7 @@ const fileFotos = (props) => {
             <div className="row">
                 <Carousel activeIndex={fotoIndex} onSelect={handleSelect} className="h-100">
                     {props.value.map((data, index) => {
-                         if(data[0].delete){
+                        if (data[0].delete) {
                             return ""
                         }
                         return <Carousel.Item key={index}>
@@ -273,14 +274,14 @@ const fileFotos = (props) => {
                                 key={'imagecarrusel-' + index}
                                 onClick={() => handlePreview(index)}
                             />
-                        </Carousel.Item>  
+                        </Carousel.Item>
                     })}
                 </Carousel>
 
             </div>
             <div className="row">
                 {(props.value || []).map((data, index) => {
-                    if(data[0].delete){
+                    if (data[0].delete) {
                         return ""
                     }
                     return <div className="col-xs-4 col-sm-6 col-md-4 col-xl-3 position-relative my-2" key={index}>
@@ -311,7 +312,7 @@ const fileFotos = (props) => {
                             onChange={handleChange}
                             className="d-none"
                             type="file"
-                            onClick={(e)=>{e.target.value = null}}
+                            onClick={(e) => { e.target.value = null }}
                         />
                         <div className="btn btn-outline-secondary">
                             <Plus size={35} />
