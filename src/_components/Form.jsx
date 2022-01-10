@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import FormObject from "@rjsf/core";
 import { LoadingHelper } from "../_components";
-import { fields } from "../_helpers";
+import { fields, widgets } from "../_helpers";
 import selectn from "selectn";
 import { Row } from 'react-bootstrap';
 
@@ -80,6 +80,7 @@ const Form = (props) => {
                     // componentes internos
                     widgets={widgets}
                     fields={fields}
+                    widgets={widgets}
                     onSubmit={(form)=>console.log(form)}
                     ObjectFieldTemplate={ObjectFieldTemplate}
                     // schema

@@ -78,6 +78,6 @@
     },
     "descripcion": {
         "classNames": "col-md-12 col-sm-12",
-        "ui:widget": "textArea"
+        "ui:fields": "textArea"
     }
 }
