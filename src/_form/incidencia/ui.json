@@ -1,59 +1,71 @@
 {
-    "classNames": "row",
-    "segmento": {
-        "ui:field": "carreteraSegmento",
-        "classNames": "col-md-6 col-sm-12"
-    },
-    "estandar": {
-        "ui:field": "reglasEstandar",
-        "classNames": "col-md-6 col-sm-12"
-    },
-    "categoria": {
-        "ui:field": "reglasCategoria",
-        "classNames": "col-md-12 col-sm-12"
-    },
-    "carril": {
-        "ui:field": "carreteraCarril",
-        "classNames": "col-md-6 col-sm-12"
-    },
-    "sentido": {
-        "ui:field": "carreteraSentido",
-        "classNames": "col-md-6 col-sm-12"
-    },
-    "cuerpo": {
-        "ui:field": "carreteraCuerpo",
-        "classNames": "col-md-6 col-sm-12"
-    },
-    "distribuidor": {
-        "ui:field": "carreteraDistribuidor",
-        "classNames": "col-md-6 col-sm-12"
-    },
-    "gaza": {
-        "ui:field": "carreteraGaza",
-        "classNames": "col-md-6 col-sm-12"
-    },
-    "metro": {
-        "ui:field": "numCadenamiento",
-        "classNames": "col-md-6 col-sm-12"
-    },
-    "descripcion": {
-        "classNames": "col-md-12 col-sm-12",
-        "ui:field":"textArea"
-    },
-    "ui:order": [
-        "segmento",
-        "cuerpo",
-        "distribuidor",
-        "gaza",
-        "carril",
-        "sentido",
-        "metro",
-        "estandar",
-        "categoria",
-        "area_danada",
+    "ui:order":[
+        "flujo",
+        "incidencia",
+        "area",
         "descripcion"
     ],
-    "area_danada": {
+    "classNames": "row",
+    "flujo": {
+        "ui:order":[
+            "segmento",
+            "cuerpo",
+            "distribuidor",
+            "gaza",
+            "carril",
+            "sentido",
+            "cadenamiento"
+        ],
+        "classNames": "row",
+        "segmento": {
+            "ui:widget": "carreteraSegmento",
+            "classNames": "col-md-6 col-sm-12"
+        },
+        "carril": {
+            "ui:widget": "carreteraCarril",
+            "classNames": "col-md-6 col-sm-12"
+        },
+        "sentido": {
+            "ui:widget": "carreteraSentido",
+            "classNames": "col-md-6 col-sm-12"
+        },
+        "cuerpo": {
+            "ui:widget": "carreteraCuerpo",
+            "classNames": "col-md-6 col-sm-12"
+        },
+        "distribuidor": {
+            "ui:widget": "carreteraDistribuidor",
+            "classNames": "col-md-6 col-sm-12"
+        },
+        "gaza": {
+            "ui:widget": "carreteraGaza",
+            "classNames": "col-md-6 col-sm-12"
+        },
+        "cadenamiento": {
+            "ui:widget": "numCadenamiento",
+            "classNames": "col-md-6 col-sm-12"
+        }
+    },
+    "incidencia": {
+        "ui:order":[
+            "estandar",
+            "categoria"
+        ],
+        "classNames": "row",
+        "estandar": {
+            "ui:widget": "reglasEstandar",
+            "classNames": "col-md-6 col-sm-12"
+        },
+        "categoria": {
+            "ui:widget": "reglasCategoria",
+            "classNames": "col-md-12 col-sm-12"
+        }
+    },
+    "area": {
+        "ui:order":[
+            "ancho",
+            "largo"
+        ],
         "classNames": "row",
         "ancho": {
             "classNames": "col-md-3 col-sm-6",
@@ -63,5 +75,9 @@
             "classNames": "col-md-3 col-sm-6",
             "ui:field": "numEntero"
         }
+    },
+    "descripcion": {
+        "classNames": "col-md-12 col-sm-12",
+        "ui:widget": "textArea"
     }
 }
