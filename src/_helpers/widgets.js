@@ -41,7 +41,7 @@ const compSelect = (props, nombre = "") => {
                 case "carreteraSegmento": dispatch(carreteraSegmentoActions.getAll())
             }
         }
-        setValue(props.value || null)
+        setValue(props.value || undefined)
     }, [])
 
     return <Form.Select
@@ -61,7 +61,9 @@ const compSelect = (props, nombre = "") => {
                         key={elem.value}
                     >
                         {
-                            obtener_catalogo(storeCatalogo.lista,elem.label,"nombre")
+                            !! storeCatalogo ?
+                                obtener_catalogo(storeCatalogo.lista, elem.label, "nombre") :
+                                elem.label
                         }
                     </option >
                 )
