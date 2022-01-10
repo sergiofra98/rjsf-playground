@@ -5,7 +5,7 @@ import { alertActions } from '../_actions';
 export const carreteraSegmentoActions = {
     getOne,
     getAll,
-    create
+    create,
 };
 
 function getOne(pk_segmento) {
@@ -26,6 +26,8 @@ function getOne(pk_segmento) {
     function success(payload) { return { type: carreteraSegmentoConstants.GET_ONE_SUCCESS, payload } }
     function failure(error) { return { type: carreteraSegmentoConstants.GET_ONE_FAILURE, error } }
 }
+
+
 
 function getAll() {
     return dispatch => {

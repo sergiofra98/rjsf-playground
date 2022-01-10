@@ -1,44 +1,44 @@
 {
     "classNames": "row",
     "segmento": {
-        "ui:widget": "carreteraSegmento",
+        "ui:field": "carreteraSegmento",
         "classNames": "col-md-6 col-sm-12"
     },
     "estandar": {
-        "ui:widget": "reglasEstandar",
+        "ui:field": "reglasEstandar",
         "classNames": "col-md-6 col-sm-12"
     },
     "categoria": {
-        "ui:widget": "reglasCategoria",
+        "ui:field": "reglasCategoria",
         "classNames": "col-md-12 col-sm-12"
     },
     "carril": {
-        "ui:widget": "carreteraCarril",
+        "ui:field": "carreteraCarril",
         "classNames": "col-md-6 col-sm-12"
     },
     "sentido": {
-        "ui:widget": "carreteraSentido",
+        "ui:field": "carreteraSentido",
         "classNames": "col-md-6 col-sm-12"
     },
     "cuerpo": {
-        "ui:widget": "carreteraCuerpo",
+        "ui:field": "carreteraCuerpo",
         "classNames": "col-md-6 col-sm-12"
     },
     "distribuidor": {
-        "ui:widget": "carreteraDistribuidor",
+        "ui:field": "carreteraDistribuidor",
         "classNames": "col-md-6 col-sm-12"
     },
     "gaza": {
-        "ui:widget": "carreteraGaza",
+        "ui:field": "carreteraGaza",
         "classNames": "col-md-6 col-sm-12"
     },
     "metro": {
-        "ui:widget": "numCadenamiento",
+        "ui:field": "numCadenamiento",
         "classNames": "col-md-6 col-sm-12"
     },
     "descripcion": {
         "classNames": "col-md-12 col-sm-12",
-        "ui:widget": "textArea"
+        "ui:field":"textArea"
     },
     "ui:order": [
         "segmento",
@@ -57,11 +57,11 @@
         "classNames": "row",
         "ancho": {
             "classNames": "col-md-3 col-sm-6",
-            "ui:widget": "numEntero"
+            "ui:field": "numEntero"
         },
         "largo": {
             "classNames": "col-md-3 col-sm-6",
-            "ui:widget": "numEntero"
+            "ui:field": "numEntero"
         }
     }
 }

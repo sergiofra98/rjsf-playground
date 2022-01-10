@@ -10,7 +10,7 @@ import { reglasCategoria } from './reglas.categoria.reducer';
 import { reglasEstandar } from './reglas.estandar.reducer';
 
 const appReducer = combineReducers({
-    carreteraSegmento,
+    segmentos: carreteraSegmento,
     carreteraCarril,
     carreteraCuerpo,
     carreteraDistribuidor,

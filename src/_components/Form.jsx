@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import FormObject from "@rjsf/core";
 import { LoadingHelper } from "../_components";
-import { widgets } from "../_helpers";
+import { fields } from "../_helpers";
 import selectn from "selectn";
 import { Row } from 'react-bootstrap';
 
@@ -57,7 +57,16 @@ function ObjectFieldTemplate(props) {
     );
 }
 
+
+
 const Form = (props) => {
+
+    const handleChange = (e) => {
+        if(!props.onChange ) { 
+            props.setData(e.formData) 
+        } else props.onChange(e)
+    }
+
     return (
         <Row>
             {!!selectn('form_schema.json_schema', props) &&
@@ -67,9 +76,10 @@ const Form = (props) => {
                     // control
                     disabled={props.disabled}
                     formData={props.data}
-                    onChange={!props.onChange ? (e) => { props.setData(e.formData) } : (e) => props.onChange(e)}
+                    onChange={handleChange}
                     // componentes internos
-                    widgets={widgets}
+                    // widgets={widgets}
+                    fields={fields}
                     onSubmit={(form)=>console.log(form)}
                     ObjectFieldTemplate={ObjectFieldTemplate}
                     // schema

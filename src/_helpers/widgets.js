@@ -86,6 +86,8 @@ const numYear = (props) => {
     </Form.Group>
 }
 
+
+
 const numCadenamiento = (props) => {
     const [value, setValue] = useState(props.value || props.placeholder || undefined);
     const [invalid, setInvalid] = useState(false);
