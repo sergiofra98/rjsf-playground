@@ -78,7 +78,7 @@ const Form = (props) => {
                     formData={props.data}
                     onChange={handleChange}
                     // componentes internos
-                    // widgets={widgets}
+                    widgets={widgets}
                     fields={fields}
                     onSubmit={(form)=>console.log(form)}
                     ObjectFieldTemplate={ObjectFieldTemplate}
