@@ -1,27 +1,62 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { store } from '../_helpers'
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import NumberFormat from 'react-number-format';
 import { getAllSegmentosForClass } from '../_actions'
 import {
-    // carreteraSegmentoActions,
-    carreteraCarrilActions,
-    carreteraCuerpoActions,
-    carreteraDistribuidorActions,
-    carreteraFlujoActions,
-    carreteraGazaActions,
-    carreteraSentidoActions,
-    reglasCategoriaActions,
-    reglasEstandarActions
+    auxiliarActions
 } from '../_actions';
 import selectn from "selectn";
 
 import { Form, Card } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel'
 import { ImageAlt, Plus, X, XCircleFill } from 'react-bootstrap-icons'
-import obtener_catalogo from './obtener_catalogo'
 
+const objFlujoConectado = (props) => {
+    const dispatch = useDispatch()
+    const store = useSelector(state => state.auxiliar.form_incidencia.query)
+    useEffect(() => {
+        console.log(props)
+        console.log(store)
+    }, [props.formData])
+    return (
+        <div id={props.idSchema['$id']}>
+            <h4>{props.schema.title}</h4>
+            <p>{props.schema.description}</p>
+            <div>
+                {props.uiSchema['ui:order'].map((campo) => {
+                    if (campo in props.schema.properties) {
+                        let schema = {
+                            ...selectn('registry.rootSchema.$defs.selects.' + campo, props),
+                            ...selectn('schema.properties.' + campo, props)
+                        }
 
+                        let uiSchema = selectn('uiSchema.' + campo, props)
+                        let onChange = () => props.onChange(campo)
+                        if (campo == 'segmento') {
+                            let options = [...schema.enum]
+
+                            return props.registry.widgets[uiSchema['ui:widget']]({
+                                ...props,
+                                options,
+                                schema,
+                                uiSchema,
+                                onChange
+                            })
+                        }
+                        else if (campo == 'cadenamiento') {
+                            return props.registry.widgets[uiSchema['ui:widget']]({
+                                ...props,
+                                schema,
+                                uiSchema,
+                                onChange
+                            })
+                        }
+                    }
+                })}
+            </div>
+        </div>
+    );
+};
 
 class numYear extends React.Component {
     constructor(props) {
@@ -334,6 +369,7 @@ class fileFotos extends React.Component {
 
 
 const fields = {
+    objFlujoConectado: objFlujoConectado,
     numCadenamiento: numCadenamiento,
     numEntero: numEntero,
     // fotos: fileFotos,

@@ -1,5 +1,5 @@
 {
-    "ui:order":[
+    "ui:order": [
         "flujo",
         "incidencia",
         "area",
@@ -7,14 +7,15 @@
     ],
     "classNames": "row",
     "flujo": {
-        "ui:order":[
+        "ui:field": "objFlujoConectado",
+        "ui:order": [
             "segmento",
+            "cadenamiento",
             "cuerpo",
             "distribuidor",
             "gaza",
             "carril",
-            "sentido",
-            "cadenamiento"
+            "sentido"
         ],
         "classNames": "row",
         "segmento": {
@@ -47,7 +48,7 @@
         }
     },
     "incidencia": {
-        "ui:order":[
+        "ui:order": [
             "estandar",
             "categoria"
         ],
@@ -62,7 +63,7 @@
         }
     },
     "area": {
-        "ui:order":[
+        "ui:order": [
             "ancho",
             "largo"
         ],

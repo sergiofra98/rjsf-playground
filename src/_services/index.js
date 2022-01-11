@@ -7,3 +7,4 @@ export * from './carreteras.gaza.service';
 export * from './carreteras.sentido.service';
 export * from './reglas.categoria.service';
 export * from './reglas.estandar.service';
+export * from './auxiliar.service';
