@@ -6,9 +6,16 @@ import selectn from "selectn";
 import { Row } from 'react-bootstrap';
 
 function ObjectFieldTemplate(props) {
-
+    // console.log('props on obkectfield', props)
     const canExpand = function canExpand() {
         const { formData, schema, uiSchema } = props;
+
+        useEffect(() => {
+            if(selectn("categoria", formData.incidencia)){
+                delete formData.incidencia.categoria
+            }
+            console.log('formData- incidencia', selectn("incidencia", formData))
+        }, [selectn('incidencia.estandar', formData)])
 
         if (!schema.additionalProperties) {
             return false;
@@ -57,6 +64,23 @@ function ObjectFieldTemplate(props) {
     );
 }
 
+function transformErrors(errors) {
+    return errors.map(error => {
+        // console.log(error)
+      if (error.name === "required") {
+        error.message = "Obligatorio"
+      }
+      if (error.name === "type") {
+        if(error.params) 
+            if(error.params.type === "number")
+                error.message = "Debe ser un número"
+      }
+      if (error.name === "minimum" || error.name === "maximum")
+        error.message = ""
+      return error;
+    });
+  }
+
 
 
 const Form = (props) => {
@@ -67,6 +91,11 @@ const Form = (props) => {
         } else props.onChange(e)
     }
 
+    // useEffect(() => {
+    //     if(selectn("categoria", props.data.incidencia)){
+    //         delete props.data.incidencia.categoria
+    //     }
+    // }, [selectn("estandar", props.data.incidencia)])
     return (
         <Row>
             {!!selectn('form_schema.json_schema', props) &&
@@ -89,6 +118,7 @@ const Form = (props) => {
                     // validación
                     liveValidate
                     showErrorList={false}
+                    transformErrors={transformErrors}
                 /> :
                 <LoadingHelper />}
         </Row>
