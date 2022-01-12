@@ -61,7 +61,7 @@ const compSelect = (props, nombre = "") => {
                         key={elem.value}
                     >
                         {
-                            !! storeCatalogo ?
+                            !!storeCatalogo ?
                                 obtener_catalogo(storeCatalogo.lista, elem.label, "nombre") :
                                 elem.label
                         }
@@ -328,7 +328,45 @@ const fileFotos = (props) => {
 }
 
 
+const objFlujoConectado = (props) => {
+    const dispatch = useDispatch()
+    const store = useSelector(state => state.auxiliar.form_incidencia.query)
+    useEffect(() => {
+        console.log(props)
+        console.log(store)
+    }, [props.formData])
+    return (
+        <div id={props.idSchema['$id']}>
+            <h4>{props.schema.title}</h4>
+            <p>{props.schema.description}</p>
+            <div>
+                {props.uiSchema['ui:order'].map((campo) => {
+                    if (campo in props.schema.properties) {
+                        let schema = {
+                            ...selectn('registry.rootSchema.$defs.selects.' + campo, props),
+                            ...selectn('schema.properties.' + campo, props)
+                        }
+
+                        let uiSchema = selectn('uiSchema.' + campo, props)
+                        let options = [...schema.enum]
+
+                        console.log(schema.enum)
+                        return props.registry.widgets[uiSchema['ui:widget']]({
+                            ...props,
+                            options,
+                            schema,
+                            uiSchema
+                        })
+                    }
+                })}
+            </div>
+        </div>
+    );
+};
+
+
 const widgets = {
+    'objFlujoConectado': objFlujoConectado,
     'select': compSelect,
     'carreteraCarril': (props) => compSelect(props, 'carreteraCarril'),
     'carreteraCuerpo': (props) => compSelect(props, 'carreteraCuerpo'),

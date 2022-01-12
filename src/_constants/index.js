@@ -8,3 +8,4 @@ export * from './carreteras.sentido.constants';
 export * from './reglas.categoria.constants';
 export * from './reglas.estandar.constants';
 export * from './alert.constants';
+export * from './auxiliar.constants';

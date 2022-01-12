@@ -1,0 +1,286 @@
+{
+	"payload": {
+		"segmento": "S5",
+		"lista": [
+			{
+				"carriles": [
+					"C2",
+					"C1",
+					"C3"
+				],
+				"sentidos": [
+					"Sen1"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 17500,
+				"fin": 22474
+			},
+			{
+				"carriles": [
+					"C1",
+					"C3"
+				],
+				"sentidos": [
+					"Sen1"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 22474,
+				"fin": 23925
+			},
+			{
+				"carriles": [
+					"C1"
+				],
+				"sentidos": [
+					"Sen1"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 23925,
+				"fin": 25000
+			},
+			{
+				"carriles": [
+					"C1"
+				],
+				"sentidos": [
+					"Sen1",
+					"Sen2"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 25000,
+				"fin": 26980
+			},
+			{
+				"carriles": [
+					"C1"
+				],
+				"sentidos": [
+					"Sen1"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 26980,
+				"fin": 27020
+			},
+			{
+				"carriles": [
+					"C3",
+					"C1"
+				],
+				"sentidos": [
+					"Sen1"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 27020,
+				"fin": 27660
+			},
+			{
+				"carriles": [
+					"C1"
+				],
+				"sentidos": [
+					"Sen1"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 27660,
+				"fin": 27690
+			},
+			{
+				"carriles": [
+					"C1"
+				],
+				"sentidos": [
+					"Sen1",
+					"Sen2"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 27690,
+				"fin": 28300
+			},
+			{
+				"carriles": [
+					"C1",
+					"C3"
+				],
+				"sentidos": [
+					"Sen1",
+					"Sen2"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 28300,
+				"fin": 28400
+			},
+			{
+				"carriles": [
+					"C3",
+					"C1"
+				],
+				"sentidos": [
+					"Sen1",
+					"Sen2"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 28400,
+				"fin": 29400
+			},
+			{
+				"carriles": [
+					"C3",
+					"C1"
+				],
+				"sentidos": [
+					"Sen1",
+					"Sen2"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 29400,
+				"fin": 29550
+			},
+			{
+				"carriles": [
+					"C1"
+				],
+				"sentidos": [
+					"Sen1",
+					"Sen2"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 29550,
+				"fin": 29790
+			},
+			{
+				"carriles": [
+					"C1"
+				],
+				"sentidos": [
+					"Sen1"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 29790,
+				"fin": 29810
+			},
+			{
+				"carriles": [
+					"C3",
+					"C1"
+				],
+				"sentidos": [
+					"Sen1"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 29810,
+				"fin": 30460
+			},
+			{
+				"carriles": [
+					"C1"
+				],
+				"sentidos": [
+					"Sen1"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 30460,
+				"fin": 30490
+			},
+			{
+				"carriles": [
+					"C1"
+				],
+				"sentidos": [
+					"Sen1",
+					"Sen2"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 30490,
+				"fin": 30800
+			},
+			{
+				"carriles": [
+					"C1",
+					"C3"
+				],
+				"sentidos": [
+					"Sen1",
+					"Sen2"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 30800,
+				"fin": 31500
+			},
+			{
+				"carriles": [
+					"C1",
+					"C3"
+				],
+				"sentidos": [
+					"Sen1"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 31500,
+				"fin": 31554
+			},
+			{
+				"carriles": [
+					"C1"
+				],
+				"sentidos": [
+					"Sen1"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 31554,
+				"fin": 31960
+			},
+			{
+				"carriles": [
+					"C1"
+				],
+				"sentidos": [
+					"Sen1",
+					"Sen2"
+				],
+				"cuerpos": [
+					"CPOA"
+				],
+				"inicio": 31960,
+				"fin": 32000
+			}
+		]
+	}
+}

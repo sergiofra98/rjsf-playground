@@ -8,6 +8,7 @@ import { carreteraGaza } from './carreteras.gaza.reducer';
 import { carreteraSentido } from './carreteras.sentido.reducer';
 import { reglasCategoria } from './reglas.categoria.reducer';
 import { reglasEstandar } from './reglas.estandar.reducer';
+import { auxiliar } from './auxiliar.reducer';
 
 const appReducer = combineReducers({
     segmentos: carreteraSegmento,
@@ -18,7 +19,8 @@ const appReducer = combineReducers({
     carreteraGaza,
     carreteraSentido,
     reglasCategoria,
-    reglasEstandar
+    reglasEstandar,
+    auxiliar
 });
 
 const rootReducer = (state, action) => {
