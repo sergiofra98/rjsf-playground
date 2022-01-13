@@ -14,7 +14,6 @@ function ObjectFieldTemplate(props) {
             if(selectn("categoria", formData.incidencia)){
                 delete formData.incidencia.categoria
             }
-            console.log('formData- incidencia', selectn("incidencia", formData))
         }, [selectn('incidencia.estandar', formData)])
 
         if (!schema.additionalProperties) {
