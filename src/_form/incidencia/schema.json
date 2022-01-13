@@ -93,6 +93,100 @@
             "title": "Flujo",
             "description": "Información de cadenamiento",
             "type": "object",
+            "dependencies": {
+                "segmento": {
+                    "oneOf": [
+                        {
+                            "properties": {
+                                "segmento": {
+                                    "const": "S1"
+                                },
+                                "cadenamiento": {
+                                    "minimum": 19900,
+                                    "maximum": 58000
+                                }
+                            }
+                        },
+                        {
+                            "properties": {
+                                "segmento": {
+                                    "const": "S2"
+                                },
+                                "cadenamiento": {
+                                    "minimum": 19900,
+                                    "maximum": 58000
+                                }
+                            }
+                        },
+                        {
+                            "properties": {
+                                "segmento": {
+                                    "const": "S3"
+                                },
+                                "cadenamiento": {
+                                    "minimum": 0,
+                                    "maximum": 34540
+                                }
+                            }
+                        },
+                        {
+                            "properties": {
+                                "segmento": {
+                                    "const": "S4"
+                                },
+                                "cadenamiento": {
+                                    "minimum": 0,
+                                    "maximum": 34540
+                                }
+                            }
+                        },
+                        {
+                            "properties": {
+                                "segmento": {
+                                    "const": "S5"
+                                },
+                                "cadenamiento": {
+                                    "minimum": 17500,
+                                    "maximum": 32000
+                                }
+                            }
+                        },
+                        {
+                            "properties": {
+                                "segmento": {
+                                    "const": "S6"
+                                },
+                                "cadenamiento": {
+                                    "minimum": 36500,
+                                    "maximum": 95900
+                                }
+                            }
+                        },
+                        {
+                            "properties": {
+                                "segmento": {
+                                    "const": "S7"
+                                },
+                                "cadenamiento": {
+                                    "minimum": 102200,
+                                    "maximum": 156570
+                                }
+                            }
+                        },
+                        {
+                            "properties": {
+                                "segmento": {
+                                    "const": "S8"
+                                },
+                                "cadenamiento": {
+                                    "minimum": 0,
+                                    "maximum": 10990
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
             "properties": {
                 "segmento": {
                     "$ref": "#/$defs/selects/segmento",
@@ -111,7 +205,10 @@
                     "$ref": "#/$defs/numerics/cadenamiento"
                 }
             },
-            "required": []
+            "required": [
+                "segmento",
+                "cadenamiento"
+            ]
         },
         "incidencia": {
             "title": "Estándares",

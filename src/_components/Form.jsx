@@ -4,61 +4,108 @@ import { LoadingHelper } from "../_components";
 import { fields, widgets } from "../_helpers";
 import selectn from "selectn";
 import { Row } from 'react-bootstrap';
+import { Form, Card } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { auxiliarActions } from '../_actions';
+import { deepmerge } from 'deepmerge-ts';
 
 function ObjectFieldTemplate(props) {
-    // console.log('props on obkectfield', props)
-    const canExpand = function canExpand() {
-        const { formData, schema, uiSchema } = props;
+    const dispatch = useDispatch()
+    const storeQuery = useSelector(state => state.auxiliar.form_incidencia.query)
+    const [actualizandoForm, setActualizandoForm] = useState(false)
 
-        useEffect(() => {
-            if(selectn("categoria", formData.incidencia)){
-                delete formData.incidencia.categoria
+    const { formData, schema, uiSchema } = props;
+
+    useEffect(() => {
+        if(selectn("categoria", formData.incidencia)){
+            delete formData.incidencia.categoria
+        }
+    }, [selectn('incidencia.estandar', formData)])
+
+    useEffect(() => {
+        // estrictamente para el objeto flujo
+        if (props.idSchema.$id == "root_flujo") {
+            if (!actualizandoForm) {
+                let max = props.schema.properties.cadenamiento.maximum
+                let min = props.schema.properties.cadenamiento.minimum
+                // si existen los campos
+                if (('segmento' in props.formData &&
+                    'cadenamiento' in props.formData) &&
+                    // si son validos
+                    (props.formData.cadenamiento <= max &&
+                        props.formData.cadenamiento >= min)
+                ) {
+                    // si no existe eel query n el store se consigue
+                    if (!storeQuery.map[props.formData['segmento']] && !storeQuery.loading) {
+                        dispatch(auxiliarActions.getFormQueryCadenamiento({
+                            segmento: [props.formData['segmento']]
+                        }))
+                    }
+                    else {
+                        // agrega los campos consiguientes al formulario
+                        let segmentos = selectn('map.' + props.formData['segmento'], storeQuery)
+                        let retorno = {
+                            properties: {
+                                flujo: {
+                                    properties: {},
+                                    required: []
+                                }
+                            }
+                        }
+
+                        if (!!segmentos) {
+                            // si el catalogo está listo filtramos para ver el segmento apropiado
+                            segmentos = segmentos.find(element => props.formData.cadenamiento >= element.inicio &&
+                                props.formData.cadenamiento <= element.fin)
+
+                            // iteramos cada cmpo que retornó el query
+                            for (const [key, value] of Object.entries(segmentos)) {
+                                // omitimos las llaves de inicio y fin
+                                if (key != 'inicio' && key != 'fin') {
+                                    let schema = selectn('registry.rootSchema.$defs.selects.' + key, props)
+                                    // creamos el objeto en las propiedades de flujo
+                                    retorno.properties.flujo.properties[key] = { ...schema, enum: value }
+                                    retorno.properties.flujo.required.push(key)
+                                }
+                            }
+                            // avisamos que se está actualizando el form
+                            setActualizandoForm(true)
+                            // se actualiza el store
+                            dispatch(auxiliarActions.updateFormIncidencia(retorno, props.registry.rootSchema))
+                        }
+
+                    }
+                }
             }
-        }, [selectn('incidencia.estandar', formData)])
 
-        if (!schema.additionalProperties) {
-            return false;
         }
-        const { expandable } = getUiOptions(uiSchema);
-        if (expandable === false) {
-            return expandable;
+        else if (props.registry.rootSchema.properties.flujo.required.length > 2) {
+            setActualizandoForm(false)
         }
-        // if ui:options.expandable was not explicitly set to false, we can add
-        // another property if we have not exceeded maxProperties yet
-        if (schema.maxProperties !== undefined) {
-            return Object.keys(formData).length < schema.maxProperties;
-        }
-        return true;
-    };
+    }, [props.formData, storeQuery])
 
-    const { TitleField, DescriptionField } = props;
 
 
     return (
         <Fragment key={props.idSchema.$id}>
             {(props.uiSchema['ui:title'] || props.title) && (
-                <TitleField
-                    id={`${props.idSchema.$id}__title`}
-                    title={props.title || props.uiSchema['ui:title']}
-                    required={props.required}
-                    formContext={props.formContext}
-                />
+                <Form.Label id={`${props.idSchema.$id}__title`}>
+                    {props.title}
+                </Form.Label>
             )}
             {props.description && (
-                <DescriptionField
-                    id={`${props.idSchema.$id}__description`}
-                    description={props.description}
-                    formContext={props.formContext}
-                />
+                <Form.Text id={`${props.idSchema.$id}__description`} className="text-muted">
+                    {props.description}
+                </Form.Text>
             )}
+
+            {storeQuery.loading ?
+                <div className="row">
+                    <LoadingHelper />
+                </div>
+                : ''
+            }
             {props.properties.map(prop => prop.content)}
-            {canExpand() && (
-                <AddButton
-                    className="object-property-expand"
-                    onClick={props.onAddClick(props.schema)}
-                    disabled={props.disabled || props.readonly}
-                />
-            )}
         </Fragment>
     );
 }
@@ -82,11 +129,11 @@ function transformErrors(errors) {
 
 
 
-const Form = (props) => {
+const FormComp = (props) => {
 
     const handleChange = (e) => {
-        if(!props.onChange ) { 
-            props.setData(e.formData) 
+        if (!props.onChange) {
+            props.setData(e.formData)
         } else props.onChange(e)
     }
 
@@ -106,10 +153,9 @@ const Form = (props) => {
                     formData={props.data}
                     onChange={handleChange}
                     // componentes internos
-                    widgets={widgets}
                     fields={fields}
                     widgets={widgets}
-                    onSubmit={(form)=>console.log(form)}
+                    onSubmit={(form) => console.log(form)}
                     ObjectFieldTemplate={ObjectFieldTemplate}
                     // schema
                     schema={props.form_schema.json_schema}
@@ -125,4 +171,4 @@ const Form = (props) => {
 }
 
 
-export { Form }
+export { FormComp }

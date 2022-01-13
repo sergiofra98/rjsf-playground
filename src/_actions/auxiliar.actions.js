@@ -1,9 +1,11 @@
 import { auxiliarConstants } from '../_constants';
 import { auxiliarService } from '../_services';
 import { alertActions } from '../_actions';
+import { deepmerge } from 'deepmerge-ts';
 
 export const auxiliarActions = {
     getFormIncidencia,
+    updateFormIncidencia,
     getFormAtencion,
     getCatalogoFlujo,
     getFormPavimentoProyeccion,
@@ -11,6 +13,12 @@ export const auxiliarActions = {
     getFormQueryCadenamiento,
     getInicio
 };
+
+function updateFormIncidencia(form_ant, form_upd) {
+    let retorno = deepmerge(form_ant, form_upd);
+    return { type: auxiliarConstants.UPDATE_FORM_INCIDENCIA, payload: retorno }
+}
+
 
 function getFormQueryCadenamiento(params = {}) {
     return dispatch => {

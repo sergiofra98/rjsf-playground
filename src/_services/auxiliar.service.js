@@ -1,6 +1,5 @@
 import config from 'config';
-import { authHeader, handleResponse } from '../_helpers';
-import query from '../_form/query/cadenamiento.json'
+import { authHeader, handleResponse, generaParams } from '../_helpers';
 
 export const auxiliarService = {
     getFormIncidencia,
@@ -18,9 +17,7 @@ function getFormQueryCadenamiento(params) {
         headers: authHeader()
     };
 
-    //return fetch(`${config.apiUrl}/api/auxiliar/form/incidencia/query/cadenamiento${generaParams(params)}`, requestOptions).then(handleResponse);
-
-    return query
+    return fetch(`${config.apiUrl}/api/auxiliar/form/incidencia/query/cadenamiento${generaParams(params)}`, requestOptions).then(handleResponse);
 }
 
 function getFormIncidencia() {

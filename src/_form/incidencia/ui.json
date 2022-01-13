@@ -19,31 +19,31 @@
         ],
         "classNames": "row",
         "segmento": {
-            "ui:widget": "carreteraSegmento",
+            "ui:field": "carreteraSegmento",
             "classNames": "col-md-6 col-sm-12"
         },
         "carril": {
-            "ui:widget": "carreteraCarril",
+            "ui:field": "carreteraCarril",
             "classNames": "col-md-6 col-sm-12"
         },
         "sentido": {
-            "ui:widget": "carreteraSentido",
+            "ui:field": "carreteraSentido",
             "classNames": "col-md-6 col-sm-12"
         },
         "cuerpo": {
-            "ui:widget": "carreteraCuerpo",
+            "ui:field": "carreteraCuerpo",
             "classNames": "col-md-6 col-sm-12"
         },
         "distribuidor": {
-            "ui:widget": "carreteraDistribuidor",
+            "ui:field": "carreteraDistribuidor",
             "classNames": "col-md-6 col-sm-12"
         },
         "gaza": {
-            "ui:widget": "carreteraGaza",
+            "ui:field": "carreteraGaza",
             "classNames": "col-md-6 col-sm-12"
         },
         "cadenamiento": {
-            "ui:widget": "numCadenamiento",
+            "ui:field": "numCadenamiento",
             "classNames": "col-md-6 col-sm-12"
         }
     },
