@@ -3,7 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import NumberFormat from 'react-number-format';
 import { getAllSegmentosForClass } from '../_actions'
 import {
-    auxiliarActions
+    carreteraSegmentoActions,
+    carreteraCarrilActions,
+    carreteraCuerpoActions,
+    carreteraDistribuidorActions,
+    carreteraFlujoActions,
+    carreteraGazaActions,
+    carreteraSentidoActions,
+    reglasCategoriaActions,
+    reglasEstandarActions
 } from '../_actions';
 import selectn from "selectn";
 
@@ -11,52 +19,68 @@ import { Form, Card } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel'
 import { ImageAlt, Plus, X, XCircleFill } from 'react-bootstrap-icons'
 
-const objFlujoConectado = (props) => {
+
+const compSelect = (props, nombre = "") => {
+    const [value, setValue] = useState("Escoge una opcion");
+    const storeCatalogo = useSelector(state => selectn(nombre, state))
     const dispatch = useDispatch()
-    const store = useSelector(state => state.auxiliar.form_incidencia.query)
     useEffect(() => {
-        console.log(props)
-        console.log(store)
-    }, [props.formData])
-    return (
-        <div id={props.idSchema['$id']}>
-            <h4>{props.schema.title}</h4>
-            <p>{props.schema.description}</p>
-            <div>
-                {props.uiSchema['ui:order'].map((campo) => {
-                    if (campo in props.schema.properties) {
-                        let schema = {
-                            ...selectn('registry.rootSchema.$defs.selects.' + campo, props),
-                            ...selectn('schema.properties.' + campo, props)
-                        }
+        if (!selectn('lista', storeCatalogo)) {
+            switch (nombre) {
+                case "carreteraCarril": dispatch(carreteraCarrilActions.getAll())
+                case "carreteraCuerpo": dispatch(carreteraCuerpoActions.getAll())
+                case "carreteraDistribuidor": dispatch(carreteraDistribuidorActions.getAll())
+                case "carreteraFlujo": dispatch(carreteraFlujoActions.getAll())
+                case "carreteraGaza": dispatch(carreteraGazaActions.getAll())
+                case "carreteraSentido": dispatch(carreteraSentidoActions.getAll())
+                case "reglasCategoria": dispatch(reglasCategoriaActions.getAll())
+                case "reglasEstandar": dispatch(reglasEstandarActions.getAll())
+                case "carreteraSegmento": dispatch(carreteraSegmentoActions.getAll())
+            }
+        }
+        setValue(props.value || undefined)
+    }, [])
 
-                        let uiSchema = selectn('uiSchema.' + campo, props)
-                        let onChange = () => props.onChange(campo)
-                        if (campo == 'segmento') {
-                            let options = [...schema.enum]
+    return <Form.Group className="mb-3">
+        {(props.uiSchema['ui:title'] || props.schema.title) && (
+            <Form.Label id={`${props.idSchema.$id}__title`}>
+                {props.schema.title}
+            </Form.Label>
+        )}
+        <Form.Select
+            onChange={(e) => {
+                setValue(e.target.value)
+                props.onChange(e.target.value)
+            }}
+            id={`${props.idSchema.$id}__root`}
+            key={value}
+            value={value}
+        >
+            <option value={undefined} hidden>Escoge una opcion</option>
+            {props.schema.enum ?
+                props.schema.enum.map((elem) => {
+                    return (
+                        <option
+                            value={elem}
+                            key={elem}
+                        >
+                            {
+                                !!storeCatalogo ?
+                                    obtener_catalogo(storeCatalogo.lista, elem, "nombre") :
+                                    elem
+                            }
+                        </option >
+                    )
+                }) : ''}
+        </Form.Select>
+        {props.schema.description && (
+            <Form.Text id={`${props.idSchema.$id}__description`} className="text-muted">
+                {props.schema.description}
+            </Form.Text>
+        )}
+    </Form.Group>
+}
 
-                            return props.registry.widgets[uiSchema['ui:widget']]({
-                                ...props,
-                                options,
-                                schema,
-                                uiSchema,
-                                onChange
-                            })
-                        }
-                        else if (campo == 'cadenamiento') {
-                            return props.registry.widgets[uiSchema['ui:widget']]({
-                                ...props,
-                                schema,
-                                uiSchema,
-                                onChange
-                            })
-                        }
-                    }
-                })}
-            </div>
-        </div>
-    );
-};
 
 class numYear extends React.Component {
     constructor(props) {
@@ -369,7 +393,16 @@ class fileFotos extends React.Component {
 
 
 const fields = {
-    objFlujoConectado: objFlujoConectado,
+    'select': compSelect,
+    carreteraCarril: (props) => compSelect(props, 'carreteraCarril'),
+    'carreteraCuerpo': (props) => compSelect(props, 'carreteraCuerpo'),
+    'carreteraDistribuidor': (props) => compSelect(props, 'carreteraDistribuidor'),
+    'carreteraFlujo': (props) => compSelect(props, 'carreteraFlujo'),
+    'carreteraGaza': (props) => compSelect(props, 'carreteraGaza'),
+    'carreteraSentido': (props) => compSelect(props, 'carreteraSentido'),
+    'reglasCategoria': (props) => compSelect(props, 'reglasCategoria'),
+    'reglasEstandar': (props) => compSelect(props, 'reglasEstandar'),
+    'carreteraSegmento': (props) => compSelect(props, 'carreteraSegmento'),
     numCadenamiento: numCadenamiento,
     numEntero: numEntero,
     // fotos: fileFotos,
