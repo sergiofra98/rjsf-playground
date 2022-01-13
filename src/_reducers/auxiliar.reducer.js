@@ -21,7 +21,6 @@ export function auxiliar(state = {
                     loading: true
                 }
             };
-        case auxiliarConstants.UPDATE_FORM_INCIDENCIA:
         case auxiliarConstants.GET_FORM_INCIDENCIA_SUCCESS:
             return {
                 ...state,

@@ -93,6 +93,25 @@
             "title": "Flujo",
             "description": "Información de cadenamiento",
             "type": "object",
+            "properties": {
+                "segmento": {
+                    "$ref": "#/$defs/selects/segmento",
+                    "enum": [
+                        "S1",
+                        "S2",
+                        "S3",
+                        "S4",
+                        "S6",
+                        "S7",
+                        "S5",
+                        "S8"
+                    ]
+                },
+                "cadenamiento": {
+                    "$ref": "#/$defs/numerics/cadenamiento"
+                }
+            },
+            "required": [],
             "dependencies": {
                 "segmento": {
                     "oneOf": [
@@ -143,17 +162,6 @@
                         {
                             "properties": {
                                 "segmento": {
-                                    "const": "S5"
-                                },
-                                "cadenamiento": {
-                                    "minimum": 17500,
-                                    "maximum": 32000
-                                }
-                            }
-                        },
-                        {
-                            "properties": {
-                                "segmento": {
                                     "const": "S6"
                                 },
                                 "cadenamiento": {
@@ -176,6 +184,17 @@
                         {
                             "properties": {
                                 "segmento": {
+                                    "const": "S5"
+                                },
+                                "cadenamiento": {
+                                    "minimum": 17500,
+                                    "maximum": 32000
+                                }
+                            }
+                        },
+                        {
+                            "properties": {
+                                "segmento": {
                                     "const": "S8"
                                 },
                                 "cadenamiento": {
@@ -186,29 +205,7 @@
                         }
                     ]
                 }
-            },
-            "properties": {
-                "segmento": {
-                    "$ref": "#/$defs/selects/segmento",
-                    "enum": [
-                        "S1",
-                        "S2",
-                        "S3",
-                        "S4",
-                        "S6",
-                        "S7",
-                        "S5",
-                        "S8"
-                    ]
-                },
-                "cadenamiento": {
-                    "$ref": "#/$defs/numerics/cadenamiento"
-                }
-            },
-            "required": [
-                "segmento",
-                "cadenamiento"
-            ]
+            }
         },
         "incidencia": {
             "title": "Estándares",
