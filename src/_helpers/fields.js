@@ -39,7 +39,7 @@ const compSelect = (props, nombre = "") => {
                 case "segmentos": dispatch(carreteraSegmentoActions.getAll())
             }
         }
-        setValue(props.value || undefined)
+        setValue(props.formData || undefined)
     }, [])
 
     return <Form.Group className="mb-3">

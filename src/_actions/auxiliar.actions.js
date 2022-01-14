@@ -5,6 +5,7 @@ import { deepmerge } from 'deepmerge-ts';
 
 export const auxiliarActions = {
     getFormIncidencia,
+    setFormIncidenciaExt,
     getFormAtencion,
     getCatalogoFlujo,
     getFormPavimentoProyeccion,
@@ -12,6 +13,11 @@ export const auxiliarActions = {
     getFormQueryCadenamiento,
     getInicio
 };
+
+
+function setFormIncidenciaExt(aug) {
+    return { type: auxiliarConstants.SET_FORM_INCIDENCIA_AUTMENT_SUCCESS, payload: aug} 
+}
 
 
 function getFormQueryCadenamiento(params = {}) {
