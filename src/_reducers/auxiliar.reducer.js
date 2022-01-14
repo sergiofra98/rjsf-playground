@@ -2,6 +2,7 @@ import { auxiliarConstants } from '../_constants';
 
 export function auxiliar(state = {
     form_incidencia: {
+        aug: {},
         query: {
             map: {}
         }
@@ -14,6 +15,14 @@ export function auxiliar(state = {
 }, action) {
     let temp;
     switch (action.type) {
+        case auxiliarConstants.SET_FORM_INCIDENCIA_AUTMENT_SUCCESS:
+            return {
+                ...state,
+                form_incidencia: {
+                    ...state.form_incidencia,
+                    aug: action.payload
+                }
+            };
         case auxiliarConstants.GET_FORM_INCIDENCIA_REQUEST:
             return {
                 ...state,
@@ -21,6 +30,7 @@ export function auxiliar(state = {
                     loading: true
                 }
             };
+
         case auxiliarConstants.GET_FORM_INCIDENCIA_SUCCESS:
             return {
                 ...state,

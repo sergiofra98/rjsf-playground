@@ -85,6 +85,16 @@
                         "$ref": "#/$defs/numerics/largo"
                     }
                 }
+            },
+            "descripcion": {
+                "title": "Descripción",
+                "description": "Adicional a la información entrada",
+                "properties": {
+                    "comentario": {
+                        "title": "Comentario",
+                        "type": "string"
+                    }
+                }
             }
         }
     },
@@ -111,7 +121,10 @@
                     "$ref": "#/$defs/numerics/cadenamiento"
                 }
             },
-            "required": [],
+            "required": [
+                "segmento",
+                "cadenamiento"
+            ],
             "dependencies": {
                 "segmento": {
                     "oneOf": [
@@ -232,9 +245,15 @@
                         "E5",
                         "E16"
                     ]
+                },
+                "categoria": {
+                    "$ref": "#/$defs/selects/categoria"
                 }
             },
-            "required": [],
+            "required": [
+                "estandar",
+                "categoria"
+            ],
             "dependencies": {
                 "estandar": {
                     "oneOf": [
@@ -527,8 +546,7 @@
             "$ref": "#/$defs/objects/area"
         },
         "descripcion": {
-            "title": "Descripción",
-            "type": "string"
+            "$ref": "#/$defs/objects/descripcion"
         }
     }
 }

@@ -11,7 +11,7 @@ import { reglasEstandar } from './reglas.estandar.reducer';
 import { auxiliar } from './auxiliar.reducer';
 
 const appReducer = combineReducers({
-    segmentos: carreteraSegmento,
+    carreteraSegmento,
     carreteraCarril,
     carreteraCuerpo,
     carreteraDistribuidor,

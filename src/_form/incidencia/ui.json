@@ -7,44 +7,43 @@
     ],
     "classNames": "row",
     "flujo": {
-        "ui:field": "objFlujoConectado",
         "ui:order": [
             "segmento",
             "cadenamiento",
             "cuerpo",
             "distribuidor",
             "gaza",
-            "carril",
-            "sentido"
+            "sentido",
+            "carril"
         ],
-        "classNames": "row",
+        "classNames": "col-6",
         "segmento": {
             "ui:field": "carreteraSegmento",
-            "classNames": "col-md-6 col-sm-12"
+            "classNames": "col-12"
         },
         "carril": {
             "ui:field": "carreteraCarril",
-            "classNames": "col-md-6 col-sm-12"
+            "classNames": "col-12"
         },
         "sentido": {
             "ui:field": "carreteraSentido",
-            "classNames": "col-md-6 col-sm-12"
+            "classNames": "col-12"
         },
         "cuerpo": {
             "ui:field": "carreteraCuerpo",
-            "classNames": "col-md-6 col-sm-12"
+            "classNames": "col-12"
         },
         "distribuidor": {
             "ui:field": "carreteraDistribuidor",
-            "classNames": "col-md-6 col-sm-12"
+            "classNames": "col-12"
         },
         "gaza": {
             "ui:field": "carreteraGaza",
-            "classNames": "col-md-6 col-sm-12"
+            "classNames": "col-12"
         },
         "cadenamiento": {
-            "ui:field": "numCadenamiento",
-            "classNames": "col-md-6 col-sm-12"
+            "ui:widget": "numCadenamiento",
+            "classNames": "col-12"
         }
     },
     "incidencia": {
@@ -52,14 +51,14 @@
             "estandar",
             "categoria"
         ],
-        "classNames": "row",
+        "classNames": "col-6",
         "estandar": {
-            "ui:widget": "reglasEstandar",
-            "classNames": "col-md-6 col-sm-12"
+            "ui:field": "reglasEstandar",
+            "classNames": "col-12"
         },
         "categoria": {
-            "ui:widget": "reglasCategoria",
-            "classNames": "col-md-12 col-sm-12"
+            "ui:field": "reglasCategoria",
+            "classNames": "col-12"
         }
     },
     "area": {
@@ -67,18 +66,20 @@
             "ancho",
             "largo"
         ],
-        "classNames": "row",
+        "classNames": "col-4 row",
         "ancho": {
-            "classNames": "col-md-3 col-sm-6",
-            "ui:field": "numEntero"
+            "classNames": "col-6",
+            "ui:widget": "numEntero"
         },
         "largo": {
-            "classNames": "col-md-3 col-sm-6",
-            "ui:field": "numEntero"
+            "classNames": "col-6",
+            "ui:widget": "numEntero"
         }
     },
     "descripcion": {
-        "classNames": "col-md-12 col-sm-12",
-        "ui:fields": "textArea"
+        "classNames": "col-8",
+        "comentario": {
+            "ui:widget": "textArea"
+        }
     }
 }

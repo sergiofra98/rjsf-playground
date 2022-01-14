@@ -18,6 +18,7 @@ import selectn from "selectn";
 import { Form, Card } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel'
 import { ImageAlt, Plus, X, XCircleFill } from 'react-bootstrap-icons'
+import obtener_catalogo from './obtener_catalogo'
 
 
 const compSelect = (props, nombre = "") => {
@@ -38,7 +39,7 @@ const compSelect = (props, nombre = "") => {
                 case "carreteraSegmento": dispatch(carreteraSegmentoActions.getAll())
             }
         }
-        setValue(props.value || undefined)
+        setValue(props.formData || undefined)
     }, [])
 
     return <Form.Group className="mb-3">
