@@ -54,11 +54,11 @@
         ],
         "classNames": "row",
         "estandar": {
-            "ui:widget": "reglasEstandar",
+            "ui:field": "reglasEstandar",
             "classNames": "col-md-6 col-sm-12"
         },
         "categoria": {
-            "ui:widget": "reglasCategoria",
+            "ui:field": "reglasCategoria",
             "classNames": "col-md-12 col-sm-12"
         }
     },

@@ -9,12 +9,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { auxiliarActions } from '../_actions';
 import { deepmerge } from 'deepmerge-ts';
 
-function ObjectFieldTemplate(props) {
+function ObjectFieldTemplate(props, setFormExtendido, formExtendido) {
     const dispatch = useDispatch()
     const storeQuery = useSelector(state => state.auxiliar.form_incidencia.query)
-    const [actualizandoForm, setActualizandoForm] = useState(false)
 
-    const { formData, schema, uiSchema } = props;
+    const { formData } = props;
 
     useEffect(() => {
         if(selectn("categoria", formData.incidencia)){
@@ -22,66 +21,88 @@ function ObjectFieldTemplate(props) {
         }
     }, [selectn('incidencia.estandar', formData)])
 
+    
+
     useEffect(() => {
         // estrictamente para el objeto flujo
         if (props.idSchema.$id == "root_flujo") {
-            if (!actualizandoForm) {
-                let max = props.schema.properties.cadenamiento.maximum
-                let min = props.schema.properties.cadenamiento.minimum
-                // si existen los campos
-                if (('segmento' in props.formData &&
-                    'cadenamiento' in props.formData) &&
-                    // si son validos
-                    (props.formData.cadenamiento <= max &&
-                        props.formData.cadenamiento >= min)
-                ) {
-                    // si no existe eel query n el store se consigue
-                    if (!storeQuery.map[props.formData['segmento']] && !storeQuery.loading) {
-                        dispatch(auxiliarActions.getFormQueryCadenamiento({
-                            segmento: [props.formData['segmento']]
-                        }))
-                    }
-                    else {
-                        // agrega los campos consiguientes al formulario
-                        let segmentos = selectn('map.' + props.formData['segmento'], storeQuery)
-                        let retorno = {
-                            properties: {
-                                flujo: {
-                                    properties: {},
-                                    required: []
-                                }
+            // si el 
+            let max = props.schema.properties.cadenamiento.maximum
+            let min = props.schema.properties.cadenamiento.minimum
+            // si existen los campos
+            if (('segmento' in props.formData &&
+                'cadenamiento' in props.formData) &&
+                // si son validos
+                (props.formData.cadenamiento <= max &&
+                    props.formData.cadenamiento >= min)
+            ) {
+                // si no existe eel query n el store se consigue
+                if (!storeQuery.map[props.formData['segmento']] && !storeQuery.loading) {
+                    dispatch(auxiliarActions.getFormQueryCadenamiento({
+                        segmento: [props.formData['segmento']]
+                    }))
+                }
+                else {
+                    // agrega los campos consiguientes al formulario
+                    let segmentos = selectn('map.' + props.formData['segmento'], storeQuery)
+                    let retorno = {
+                                properties: {},
+                                required: []
+                            }
+
+                    if (!!segmentos && retorno.required != Object.keys(segmentos[0]).length - 2) {
+                        // si el catalogo está listo filtramos para ver el segmento apropiado
+                        // y si los campos registrados en el schema son diferentes a los que se deben agregar
+                        segmentos = segmentos.find(element => props.formData.cadenamiento >= element.inicio &&
+                            props.formData.cadenamiento <= element.fin)
+
+                        // iteramos cada cmpo que retornó el query
+                        for (const [key, value] of Object.entries(segmentos)) {
+                            // omitimos las llaves de inicio y fin
+                            if (key != 'inicio' && key != 'fin') {
+                                let schema = selectn('registry.rootSchema.$defs.selects.' + key, props)
+                                // creamos el objeto en las propiedades de flujo
+                                retorno.properties[key] = { ...schema, enum: value }
+                                retorno.required.push(key)
                             }
                         }
-
-                        if (!!segmentos) {
-                            // si el catalogo está listo filtramos para ver el segmento apropiado
-                            segmentos = segmentos.find(element => props.formData.cadenamiento >= element.inicio &&
-                                props.formData.cadenamiento <= element.fin)
-
-                            // iteramos cada cmpo que retornó el query
-                            for (const [key, value] of Object.entries(segmentos)) {
-                                // omitimos las llaves de inicio y fin
-                                if (key != 'inicio' && key != 'fin') {
-                                    let schema = selectn('registry.rootSchema.$defs.selects.' + key, props)
-                                    // creamos el objeto en las propiedades de flujo
-                                    retorno.properties.flujo.properties[key] = { ...schema, enum: value }
-                                    retorno.properties.flujo.required.push(key)
-                                }
+                        // se actualiza el store
+                        setFormExtendido({
+                            ...formExtendido,
+                            properties:{
+                                flujo: retorno,
+                                ...formExtendido.properties,
                             }
-                            // avisamos que se está actualizando el form
-                            setActualizandoForm(true)
-                            // se actualiza el store
-                            dispatch(auxiliarActions.updateFormIncidencia(retorno, props.registry.rootSchema))
-                        }
-
+                        })
                     }
+
                 }
             }
+        }
+        // estrictamente para el objeto incidencia
+        if (props.idSchema.$id == "root_incidencia") {
+            if('estandar' in props.formData){
+                let retornoi = {
+                            properties: {},
+                            required: []
+                    
+                }
 
+                let schema = selectn('registry.rootSchema.$defs.selects.categoria', props)
+                let categorias = selectn('props.schema.properties.categoria.enum')
+                retornoi.properties['categoria'] = { ...schema, enum: categorias }
+                retornoi.required.push('categoria')
+    
+                setFormExtendido({
+                    ...formExtendido,
+                    properties:{
+                        ...formExtendido.properties,
+                        incidencia: retornoi
+                    }
+                })
+            }
         }
-        else if (props.registry.rootSchema.properties.flujo.required.length > 2) {
-            setActualizandoForm(false)
-        }
+
     }, [props.formData, storeQuery])
 
 
@@ -89,12 +110,12 @@ function ObjectFieldTemplate(props) {
     return (
         <Fragment key={props.idSchema.$id}>
             {(props.uiSchema['ui:title'] || props.title) && (
-                <Form.Label id={`${props.idSchema.$id}__title`}>
+                <Form.Label id={`${props.idSchema.$id}__title`} className='fs-4 mb-0'>
                     {props.title}
                 </Form.Label>
             )}
             {props.description && (
-                <Form.Text id={`${props.idSchema.$id}__description`} className="text-muted">
+                <Form.Text id={`${props.idSchema.$id}__description`} className="text-muted mb-3">
                     {props.description}
                 </Form.Text>
             )}
@@ -112,7 +133,6 @@ function ObjectFieldTemplate(props) {
 
 function transformErrors(errors) {
     return errors.map(error => {
-        // console.log(error)
       if (error.name === "required") {
         error.message = "Obligatorio"
       }
@@ -130,6 +150,7 @@ function transformErrors(errors) {
 
 
 const FormComp = (props) => {
+    const [formExtendido, setFormExtendido] = useState({})
 
     const handleChange = (e) => {
         if (!props.onChange) {
@@ -146,7 +167,7 @@ const FormComp = (props) => {
         <Row>
             {!!selectn('form_schema.json_schema', props) &&
                 !!selectn('form_schema.ui_schema', props) &&
-                !selectn('form_schema.cargando', props) ?
+                !selectn('form_schema.cargando', props)  ?
                 <FormObject
                     // control
                     disabled={props.disabled}
@@ -156,9 +177,9 @@ const FormComp = (props) => {
                     fields={fields}
                     widgets={widgets}
                     onSubmit={(form) => console.log(form)}
-                    ObjectFieldTemplate={ObjectFieldTemplate}
+                    ObjectFieldTemplate={(props) =>ObjectFieldTemplate(props, setFormExtendido, formExtendido)}
                     // schema
-                    schema={props.form_schema.json_schema}
+                    schema={deepmerge(props.form_schema.json_schema, formExtendido)}
                     uiSchema={props.form_schema.ui_schema}
                     // validación
                     liveValidate

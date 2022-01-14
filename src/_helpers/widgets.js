@@ -92,6 +92,7 @@ const numYear = (props) => {
 
 
 const numCadenamiento = (props) => {
+    console.log('its a widget', props)
     const [value, setValue] = useState(props.value || props.placeholder || undefined);
     const [invalid, setInvalid] = useState(false);
 
