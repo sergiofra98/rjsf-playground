@@ -2,7 +2,9 @@ import { auxiliarConstants } from '../_constants';
 
 export function auxiliar(state = {
     form_incidencia: {
-        aug: {},
+        aug: {
+            properties: {}
+        },
         query: {
             map: {}
         }
@@ -20,7 +22,27 @@ export function auxiliar(state = {
                 ...state,
                 form_incidencia: {
                     ...state.form_incidencia,
-                    aug: action.payload
+                    aug: {
+                        properties : {
+                            ...state.form_incidencia.aug.properties,
+                            ...action.payload
+                        }
+                    }
+                }
+            };
+        case auxiliarConstants.SET_FORM_INCIDENCIA_AUTMENT_INCIDENCIA_SUCCESS:
+            return {
+                ...state,
+                form_incidencia: {
+                    ...state.form_incidencia,
+                    aug: {
+                        properties : {
+                            ...state.form_incidencia.aug.properties,
+                            "incidencia": {
+                                "properties": action.payload
+                            }
+                        }
+                    }
                 }
             };
         case auxiliarConstants.GET_FORM_INCIDENCIA_REQUEST:

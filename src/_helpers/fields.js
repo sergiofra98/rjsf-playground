@@ -17,14 +17,10 @@ import selectn from "selectn";
 import { Form } from 'react-bootstrap';
 import obtener_catalogo from './obtener_catalogo';
 
-
 const compSelect = (props, nombre = "") => {
-    const [value, setValue] = useState(undefined);
+    const [value, setValue] = useState("Escoge una opcion");
     const storeCatalogo = useSelector(state => selectn(nombre, state))
     const dispatch = useDispatch()
-    useEffect(() => {
-        console.log('value changed', value)
-    }, [value])
     useEffect(() => {
         if (!selectn('lista', storeCatalogo)) {
             switch (nombre) {
@@ -36,7 +32,7 @@ const compSelect = (props, nombre = "") => {
                 case "carreteraSentido": dispatch(carreteraSentidoActions.getAll())
                 case "reglasCategoria": dispatch(reglasCategoriaActions.getAll())
                 case "reglasEstandar": dispatch(reglasEstandarActions.getAll())
-                case "segmentos": dispatch(carreteraSegmentoActions.getAll())
+                case "carreteraSegmento": dispatch(carreteraSegmentoActions.getAll())
             }
         }
         setValue(props.formData || undefined)
@@ -82,6 +78,7 @@ const compSelect = (props, nombre = "") => {
     </Form.Group>
 }
 
+
 const numYear = (props) => {
     const [value, setValue] = useState(props.value || props.placeholder);
     return <Form.Group>
@@ -117,7 +114,6 @@ const numCadenamiento = (props) => {
 
     return <Form.Group>
         <Form.Label>{props.schema.title}</Form.Label>
-        {console.log('porps cad', props)}
         <NumberFormat
             type="text"
             id={`${props.idSchema.$id}__root`}
@@ -136,11 +132,13 @@ const numCadenamiento = (props) => {
             required
             value={value}
         />
-        {props.schema.description && !invalid && (
+        {props.schema.description && !invalid ? (
             <Form.Text id={`${props.idSchema.$id}__description`} className="text-muted">
                 {props.schema.description}
             </Form.Text>
-        )}
+        )
+         : ""
+        }
         <Form.Text>
             {invalid ? `El cadenamiento es de ${parseInt(props.schema.minimum / 1000)} + 
                 ${String(props.schema.minimum % 1000).padStart(3, '0')} a ${props.schema.maximum / 1000} +
@@ -152,15 +150,15 @@ const numCadenamiento = (props) => {
 
 
 const numEntero = (props) => {
-    const [value, setValue] = useState(props.value || props.placeholder || undefined);
+    const [value, setValue] = useState(props.value || props.placeholder || "");
 
     return <Form.Group>
         <Form.Label>{props.schema.title}</Form.Label>
         <Form.Control id={`${props.idSchema.$id}__root`}
             placeholder="0 m"
             onChange={(e) => {
-                setValue(e.target.value)
-                props.onChange(e.target.value)
+                setValue(parseInt(e.target.value))
+                props.onChange(parseInt(e.target.value))
             }}
             label={props.label}
             required
@@ -174,7 +172,6 @@ const textArea = (props) => {
 
     return <Form.Group>
         <Form.Label>{props.schema.title}</Form.Label>
-        {console.log('props text area', props)}
         <Form.Control id={`${props.idSchema.$id}__root`}
             onChange={(e) => {
                 setValue(e.target.value)
@@ -201,9 +198,9 @@ const fields = {
     'carreteraSentido': (props) => compSelect(props, 'carreteraSentido'),
     'reglasCategoria': (props) => compSelect(props, 'reglasCategoria'),
     'reglasEstandar': (props) => compSelect(props, 'reglasEstandar'),
-    'carreteraSegmento': (props) => compSelect(props, 'segmentos'),
+    'carreteraSegmento': (props) => compSelect(props, 'carreteraSegmento'),
     'numCadenamiento': numCadenamiento,
-    'numEntero': numEntero,
+    'numEntero': (props) => numEntero(props, '0 m'),
     // fotos: fileFotos,
     'numYear': numYear,
     'textArea': textArea

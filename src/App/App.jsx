@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import './App.css';
 import { FormComp } from '../_components/Form'
 import { auxiliarActions } from '../_actions';
@@ -19,7 +19,7 @@ function App() {
     }
   }, []);
 
-  localStorage.setItem('token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDIyNDYxNjYsImlkIjoyLCJkb21pbmlvIjoxLCJjdWVudGEiOiJnZXJlbnRlMDFfanlyZWgiLCJub21icmUiOiJEYW50ZSBIZXJuXHUwMGUxbmRleiIsInJvbCI6ImdlcmVudGVfc3VwZXJ2aXNvciJ9.emSCbiX_zz6azl0iQ1F12ZQBL5oGISc9rlhj9MR9kFA')
+  localStorage.setItem('token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDI1MDUwODcsImlkIjoyLCJkb21pbmlvIjoxLCJjdWVudGEiOiJnZXJlbnRlMDFfanlyZWgiLCJub21icmUiOiJFbGdlciBFbnRlXG4gVW5vIiwicm9sIjoiZ2VyZW50ZV9zdXBlcnZpc29yIn0.ZV-rj8dJEw4xEyEQP4wi0tOanAcAmGePe6wfC8DZvm0')
   return (
     <div className="bg-light container-fluid h-100">
       <FormComp

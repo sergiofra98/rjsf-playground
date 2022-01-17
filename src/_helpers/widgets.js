@@ -92,7 +92,6 @@ const numYear = (props) => {
 
 
 const numCadenamiento = (props) => {
-    console.log('its a widget', props)
     const [value, setValue] = useState(props.value || props.placeholder || undefined);
     const [invalid, setInvalid] = useState(false);
 
@@ -332,10 +331,7 @@ const fileFotos = (props) => {
 const objFlujoConectado = (props) => {
     const dispatch = useDispatch()
     const store = useSelector(state => state.auxiliar.form_incidencia.query)
-    useEffect(() => {
-        console.log(props)
-        console.log(store)
-    }, [props.formData])
+
     return (
         <div id={props.idSchema['$id']}>
             <h4>{props.schema.title}</h4>
@@ -350,8 +346,6 @@ const objFlujoConectado = (props) => {
 
                         let uiSchema = selectn('uiSchema.' + campo, props)
                         let options = [...schema.enum]
-
-                        console.log(schema.enum)
                         return props.registry.widgets[uiSchema['ui:widget']]({
                             ...props,
                             options,

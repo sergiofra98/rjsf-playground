@@ -16,7 +16,7 @@
             "sentido",
             "carril"
         ],
-        "classNames": "col-6",
+        "classNames": "col-md-6 col-sm-12",
         "segmento": {
             "ui:field": "carreteraSegmento",
             "classNames": "col-12"
@@ -42,7 +42,7 @@
             "classNames": "col-12"
         },
         "cadenamiento": {
-            "ui:widget": "numCadenamiento",
+            "ui:field": "numCadenamiento",
             "classNames": "col-12"
         }
     },
@@ -51,14 +51,14 @@
             "estandar",
             "categoria"
         ],
-        "classNames": "col-6",
+        "classNames": "col-md-6 col-sm-12",
         "estandar": {
             "ui:field": "reglasEstandar",
-            "classNames": "col-md-6 col-sm-12"
+            "classNames": "col-12"
         },
         "categoria": {
             "ui:field": "reglasCategoria",
-            "classNames": "col-md-12 col-sm-12"
+            "classNames": "col-12"
         }
     },
     "area": {
@@ -66,20 +66,20 @@
             "ancho",
             "largo"
         ],
-        "classNames": "col-4 row",
+        "classNames": "col-4",
         "ancho": {
             "classNames": "col-6",
-            "ui:widget": "numEntero"
+            "ui:field": "numEntero"
         },
         "largo": {
             "classNames": "col-6",
-            "ui:widget": "numEntero"
+            "ui:field": "numEntero"
         }
     },
     "descripcion": {
         "classNames": "col-8",
         "comentario": {
-            "ui:widget": "textArea"
+            "ui:field": "textArea"
         }
     }
 }

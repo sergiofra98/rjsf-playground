@@ -245,9 +245,6 @@
                         "E5",
                         "E16"
                     ]
-                },
-                "categoria": {
-                    "$ref": "#/$defs/selects/categoria"
                 }
             },
             "required": [
